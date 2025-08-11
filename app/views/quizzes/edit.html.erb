@@ -1,12 +1,14 @@
 <% content_for :title, "Editing quiz" %>
 
-<h1>Editing quiz</h1>
+<div class="flex flex-col items-center w-full">
+  <h1 class="text-3xl font-bold text-blue-700 mb-8 text-center">Editing quiz</h1>
 
-<%= render "form", quiz: @quiz %>
+  <div class="w-full max-w-xl">
+    <%= render "form", quiz: @quiz %>
+  </div>
 
-<br>
-
-<div>
-  <%= link_to "Show this quiz", @quiz %> |
-  <%= link_to "Back to quizzes", quizzes_path %>
+  <div class="mt-8 flex gap-4">
+    <%= link_to "Show this quiz", @quiz, class: "text-white bg-blue-600 px-4 py-2 rounded" %>
+    <%= link_to "Back to quizzes", quizzes_path, class: "text-white bg-green-600 px-4 py-2 rounded" %>
+  </div>
 </div>

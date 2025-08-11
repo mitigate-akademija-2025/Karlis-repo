@@ -1,10 +1,22 @@
-<p style="color: green"><%= notice %></p>
+<p class="text-green-600 mb-4"><%= notice %></p>
 
-<%= render @quiz %>
+<div class="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-8 mt-8">
+  <%= render @quiz %>
 
-<div>
-  <%= link_to "Edit this quiz", edit_quiz_path(@quiz) %> |
-  <%= link_to "Back to quizzes", quizzes_path %>
+  <% if @quiz.questions.any? %>
+    <h2 class="text-2xl font-semibold mt-8 mb-4 text-blue-800">Questions</h2>
+    <ul class="list-disc list-inside space-y-2">
+      <% @quiz.questions.each do |question| %>
+        <li class="pl-2"><%= question.name %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="text-gray-500 mt-8">No questions for this quiz yet.</p>
+  <% end %>
 
-  <%= button_to "Destroy this quiz", @quiz, method: :delete %>
+  <div class="mt-8 flex flex-wrap gap-4">
+    <%= link_to "Edit this quiz", edit_quiz_path(@quiz), class: "bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded" %>
+    <%= link_to "Back to quizzes", quizzes_path, class: "bg-gray-300 hover:bg-gray-400 text-gray-800 px-4 py-2 rounded" %>
+    <%= button_to "Destroy this quiz", @quiz, method: :delete, data: { confirm: "Are you sure?" }, class: "bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded" %>
+  </div>
 </div>

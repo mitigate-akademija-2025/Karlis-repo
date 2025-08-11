@@ -1,9 +1,8 @@
 <%= form_with(model: quiz) do |form| %>
   <% if quiz.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(quiz.errors.count, "error") %> prohibited this quiz from being saved:</h2>
-
-      <ul>
+    <div class="mb-4 text-red-600">
+      <h2 class="font-bold"><%= pluralize(quiz.errors.count, "error") %> prohibited this quiz from being saved:</h2>
+      <ul class="list-disc list-inside">
         <% quiz.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,32 +10,34 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+  <div class="mb-4">
+    <%= form.label :title, class: "block font-semibold mb-1" %>
+    <%= form.text_field :title, class: "w-full border rounded px-3 py-2" %>
   </div>
 
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.textarea :description %>
+  <div class="mb-4">
+    <%= form.label :description, class: "block font-semibold mb-1" %>
+    <%= form.text_area :description, class: "w-full border rounded px-3 py-2" %>
   </div>
+
   <%= form.fields_for :questions do |question_form| %>
-    <% puts question_form.inspect %>
-    <fieldset>
-      <legend>Question #<%=question_form.index + 1%></legend>
+    <fieldset class="mb-4 border rounded p-3">
+      <legend class="font-semibold mb-2">Question #<%= question_form.index + 1 %></legend>
       <div class="nested-fields">
-        <%= question_form.label :name %>
-        <%= question_form.text_field :name %>
+        <%= question_form.label :name, class: "block mb-1" %>
+        <%= question_form.text_field :name, class: "w-full border rounded px-3 py-2 mb-2" %>
 
-        <%if question_form.object.persisted? %>
-          <%= question_form.check_box :_destroy %>
-          <%= question_form.label :_destroy, "Remove" %>
+        <% if question_form.object.persisted? %>
+          <div class="flex items-center gap-2">
+            <%= question_form.check_box :_destroy %>
+            <%= question_form.label :_destroy, "Remove" %>
+          </div>
         <% end %>
       </div>
     </fieldset>
   <% end %>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit class: "bg-blue-600 text-white px-4 py-2 rounded" %>
   </div>
 <% end %>

@@ -1,0 +1,10 @@
+<tr id="<%= dom_id quiz %>">
+  <td><%= quiz.id %></td>
+  <td><%= link_to quiz %></td>
+  <td>
+    <div class="flex gap-2">
+      <%= button_to 'Edit', edit_quiz_path(quiz), method: :get, class: "bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded" %>
+      <%= button_to "Destroy!", quiz, method: :delete, class: "bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded" %>
+    </div>
+  </td>
+</tr>
