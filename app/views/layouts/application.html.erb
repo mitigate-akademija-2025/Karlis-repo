@@ -32,5 +32,9 @@
       </header>
       <%= yield %>
     </main>
+
+    <% if user_signed_in? %>
+      <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "text-white bg-red-600 px-4 py-2 rounded" %>
+    <% end %>
   </body>
 </html>

@@ -29,6 +29,7 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes/1/edit
   def edit
+    authorize @quiz
   end
 
   # POST /quizzes or /quizzes.json
@@ -48,7 +49,6 @@ class QuizzesController < ApplicationController
 
   # PATCH/PUT /quizzes/1 or /quizzes/1.json
   def update
-    @quiz = Quiz.find(params[:id])
     authorize @quiz
 
     respond_to do |format|
@@ -64,24 +64,18 @@ class QuizzesController < ApplicationController
 
   # DELETE /quizzes/1 or /quizzes/1.json
   def destroy
-    @quiz = Quiz.find(params[:id])
     authorize @quiz
-
     @quiz.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to quizzes_path, status: :see_other, notice: "Quiz was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to quizzes_path, notice: "Quiz deleted."
   end
 
   private
+
     # Use callbacks to share common setup or constraints between actions.
     def set_quiz
-      @quiz = Quiz.find(params.expect(:id))
+      @quiz = Quiz.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
    def quiz_params
     params.require(:quiz).permit(
       :title,

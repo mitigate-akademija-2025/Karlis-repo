@@ -1,13 +1,6 @@
 class QuizPolicy < ApplicationPolicy
-  attr_reader :user, :quiz
-
-  def initialize(user, quiz)
-    @user = user
-    @quiz = quiz
-  end
-
   def index?
-    @user = user
+    true # Allow all users to view the list of quizzes
   end
 
   def update?
@@ -27,13 +20,13 @@ class QuizPolicy < ApplicationPolicy
     end
 
     def resolve
-      user.admin? ? scope.all : scope.none
+      user.admin? ? scope.all : scope.where(user_id: user.id)
     end
   end
 
   private
 
   def user_is_owner_or_admin?
-    user.admin? || record.user_id == user.id
+    user.present? && record.present? && (user.admin? || record.user_id == user.id)
   end
 end
