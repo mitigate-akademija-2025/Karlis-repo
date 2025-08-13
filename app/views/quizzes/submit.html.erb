@@ -1,0 +1,15 @@
+<h1>Quiz Results: <%= @quiz.title %></h1>
+
+<% @results.each do |result| %>
+  <fieldset class="mb-4 border rounded p-3">
+    <legend class="font-semibold mb-2"><%= result[:question].name %></legend>
+    <p>Your answer: <%= result[:user_answer] %></p>
+    <p>
+      <% if result[:correct] %>
+        <span class="text-green-600 font-bold">Correct!</span>
+      <% else %>
+        <span class="text-red-600 font-bold">Incorrect.</span>
+      <% end %>
+    </p>
+  </fieldset>
+<% end %>

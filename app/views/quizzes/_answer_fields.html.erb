@@ -1,0 +1,7 @@
+<div class="mb-2 border rounded p-2">
+  <%= f.label :text, "Answer", class: "block mb-1" %>
+  <%= f.text_field :text, class: "w-full border rounded px-3 py-2 mb-1" %>
+  <%= f.label :correct, "Correct?", class: "block mb-1" %>
+  <%= f.check_box :correct %>
+  <%= link_to_remove_association "Remove Answer", f, class: "bg-red-400 text-white px-2 py-1 rounded ml-2" %>
+</div>

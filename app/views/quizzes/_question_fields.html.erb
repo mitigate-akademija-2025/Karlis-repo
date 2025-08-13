@@ -1,0 +1,25 @@
+<fieldset class="mb-4 border rounded p-3 question-fields">
+  <legend class="font-semibold mb-2">Question</legend>
+  <div class="nested-fields">
+    <%= f.label :name, "Question", class: "block mb-1" %>
+    <%= f.text_field :name, class: "w-full border rounded px-3 py-2 mb-2" %>
+
+    <%= f.label :question_type, "Question Type", class: "block mb-1" %>
+    <%= f.select :question_type, [["Multiple Choice", "multiple_choice"], ["Text", "text"], ["True/False", "true_false"]], {}, class: "w-full border rounded px-3 py-2 mb-2 question-type-select" %>
+
+    <div class="answers-fields" style="display:none;">
+      <%= f.fields_for :answers do |answer_form| %>
+        <div class="mb-2 border rounded p-2">
+          <%= answer_form.label :text, "Answer", class: "block mb-1" %>
+          <%= answer_form.text_field :text, class: "w-full border rounded px-3 py-2 mb-1" %>
+          <%= answer_form.label :correct, "Correct?", class: "block mb-1" %>
+          <%= answer_form.check_box :correct %>
+          <%= link_to_remove_association "Remove Answer", answer_form, class: "bg-red-400 text-white px-2 py-1 rounded ml-2" %>
+        </div>
+      <% end %>
+      <%= link_to_add_association "Add Answer", f, :answers, class: "bg-green-500 text-white px-3 py-1 rounded" %>
+    </div>
+
+    <%= link_to_remove_association "Remove", f, class: "remove-question bg-red-500 text-white px-2 py-1 rounded" %>
+  </div>
+</fieldset>

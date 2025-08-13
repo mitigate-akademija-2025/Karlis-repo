@@ -1,0 +1,27 @@
+<h1><%= @quiz.title %></h1>
+<p><%= @quiz.description %></p>
+
+<%= form_with url: submit_quiz_path(@quiz), method: :post, local: true do |f| %>
+  <% @quiz.questions.each do |question| %>
+    <fieldset class="mb-4 border rounded p-3">
+      <legend class="font-semibold mb-2"><%= question.name %></legend>
+
+      <% if question.question_type == "multiple_choice" %>
+        <% question.answers.each do |answer| %>
+          <div>
+            <%= f.radio_button "answers[#{question.id}]", answer.id %>
+            <%= answer.text %>
+          </div>
+        <% end %>
+      <% elsif question.question_type == "true_false" %>
+        <div>
+          <%= f.radio_button "answers[#{question.id}]", "true" %> True
+          <%= f.radio_button "answers[#{question.id}]", "false" %> False
+        </div>
+      <% elsif question.question_type == "text" %>
+        <%= f.text_field "answers[#{question.id}]", class: "w-full border rounded px-3 py-2" %>
+      <% end %>
+    </fieldset>
+  <% end %>
+  <%= f.submit "Submit Quiz", class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+<% end %>

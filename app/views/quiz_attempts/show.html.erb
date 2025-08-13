@@ -1,0 +1,16 @@
+<h1>Quiz Results: <%= @quiz.title %></h1>
+<p>Score: <%= @attempt.score %> / <%= @quiz.questions.count %></p>
+
+<% @user_answers.each do |ua| %>
+  <fieldset class="mb-4 border rounded p-3">
+    <legend class="font-semibold mb-2"><%= ua.question.name %></legend>
+    <p>Your answer: <%= ua.answer %></p>
+    <p>
+      <% if ua.correct %>
+        <span class="text-green-600 font-bold">Correct!</span>
+      <% else %>
+        <span class="text-red-600 font-bold">Incorrect.</span>
+      <% end %>
+    </p>
+  </fieldset>
+<% end %>

@@ -14,7 +14,12 @@ Rails.application.routes.draw do
   root to: redirect('/quizzes')
   resources :quizzes do
     resources :questions, shallow: true
+    member do
+      get :take
+      post :submit
+    end
   end  
 
   resources :users, only: [ :show ]
+  resources :quiz_attempts, only: [:show]
 end

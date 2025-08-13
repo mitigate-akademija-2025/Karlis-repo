@@ -1,10 +1,5 @@
 class QuizzesController < ApplicationController
   before_action :set_quiz, only: %i[ show edit update destroy ]
-  before_action :authorize_resource, only: [ :index ]
-
-  def authorize_resource
-    authorize Quiz, :index?
-  end
 
   # GET /quizzes or /quizzes.json
   def index
@@ -19,9 +14,6 @@ class QuizzesController < ApplicationController
   # GET /quizzes/new
   def new
     @quiz = Quiz.new
-    2.times do 
-      @quiz.questions.build(name: 'Vai tev ir ko pajautat?')
-    end
   end
 
   # GET /quizzes/1/edit
@@ -33,9 +25,9 @@ class QuizzesController < ApplicationController
   def create
     @quiz = current_user.quizzes.build(quiz_params)
     if @quiz.save
-      redirect_to @quiz, notice: "Quiz created!"
+      redirect_to @quiz, notice: "Quiz was successfully created."
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -61,6 +53,44 @@ class QuizzesController < ApplicationController
     redirect_to quizzes_path, notice: "Quiz deleted."
   end
 
+  def take
+    @quiz = Quiz.find(params[:id])
+  end
+
+  def submit
+    @quiz = Quiz.find(params[:id])
+    @user_answers = params[:answers] || {}
+
+    score = 0
+    attempt = QuizAttempt.create(user: current_user, quiz: @quiz)
+
+    @results = @quiz.questions.map do |question|
+      user_answer = @user_answers[question.id.to_s]
+      correct = false
+
+      if question.question_type == "multiple_choice"
+        correct = question.answers.find_by(id: user_answer)&.correct?
+      elsif question.question_type == "true_false"
+        correct = user_answer.present? && question.answers.find_by(text: user_answer.capitalize)&.correct?
+      elsif question.question_type == "text"
+        correct = question.answers.any? { |a| a.text.strip.downcase == user_answer.to_s.strip.downcase && a.correct? }
+      end
+
+      score += 1 if correct
+
+      attempt.user_answers.create(
+        question: question,
+        answer: user_answer,
+        correct: correct
+      )
+
+      { question: question, user_answer: user_answer, correct: correct }
+    end
+
+    attempt.update(score: score)
+    redirect_to quiz_attempt_path(attempt)
+  end
+
   private
 
     # Use callbacks to share common setup or constraints between actions.
@@ -68,13 +98,26 @@ class QuizzesController < ApplicationController
       @quiz = Quiz.find(params[:id])
     end
 
-   def quiz_params
+  private
+
+  def quiz_params
     params.require(:quiz).permit(
       :title,
       :description,
-      questions_attributes: [:id, :name, :_destroy]
+      questions_attributes: [
+        :id,
+        :name,
+        :question_type,
+        :_destroy,
+        answers_attributes: [
+          :id,
+          :text,
+          :correct,
+          :_destroy
+        ]
+      ]
     )
-   end
+  end
 
 
 end

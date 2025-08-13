@@ -20,22 +20,12 @@
     <%= form.text_area :description, class: "w-full border rounded px-3 py-2" %>
   </div>
 
-  <%= form.fields_for :questions do |question_form| %>
-    <fieldset class="mb-4 border rounded p-3">
-      <legend class="font-semibold mb-2">Question #<%= question_form.index + 1 %></legend>
-      <div class="nested-fields">
-        <%= question_form.label :name, class: "block mb-1" %>
-        <%= question_form.text_field :name, class: "w-full border rounded px-3 py-2 mb-2" %>
-
-        <% if question_form.object.persisted? %>
-          <div class="flex items-center gap-2">
-            <%= question_form.check_box :_destroy %>
-            <%= question_form.label :_destroy, "Remove" %>
-          </div>
-        <% end %>
-      </div>
-    </fieldset>
-  <% end %>
+  <div id="questions-list">
+    <%= form.fields_for :questions do |question_form| %>
+      <%= render 'question_fields', f: question_form %>
+    <% end %>
+    <%= link_to_add_association 'Add Question', form, :questions, class: "bg-green-600 text-white px-4 py-2 rounded" %>
+  </div>
 
   <div>
     <%= form.submit class: "bg-blue-600 text-white px-4 py-2 rounded" %>
