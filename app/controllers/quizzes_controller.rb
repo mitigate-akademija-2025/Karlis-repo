@@ -33,7 +33,7 @@ class QuizzesController < ApplicationController
 
   # POST /quizzes or /quizzes.json
   def create
-    @quiz = Quiz.new(quiz_params)
+    @quiz = current_user.quizzes.build(quiz_params)
 
     respond_to do |format|
       if @quiz.save
@@ -48,6 +48,9 @@ class QuizzesController < ApplicationController
 
   # PATCH/PUT /quizzes/1 or /quizzes/1.json
   def update
+    @quiz = Quiz.find(params[:id])
+    authorize @quiz
+
     respond_to do |format|
       if @quiz.update(quiz_params)
         format.html { redirect_to @quiz, notice: "Quiz was successfully updated." }
@@ -61,6 +64,9 @@ class QuizzesController < ApplicationController
 
   # DELETE /quizzes/1 or /quizzes/1.json
   def destroy
+    @quiz = Quiz.find(params[:id])
+    authorize @quiz
+
     @quiz.destroy!
 
     respond_to do |format|

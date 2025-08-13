@@ -23,6 +23,11 @@
         <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "w-full border rounded px-3 py-2" %>
       </div>
 
+      <div class="field mb-4">
+        <%= f.label :username, class: "block font-semibold mb-1" %>
+        <%= f.text_field :username, autofocus: true, autocomplete: "username", class: "w-full border rounded px-3 py-2" %>
+      </div>
+
       <div class="actions">
         <%= f.submit "Sign up", class: "w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded font-semibold" %>
       </div>
