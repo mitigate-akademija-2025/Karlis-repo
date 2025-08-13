@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   resources :quizzes do
     resources :questions, shallow: true
   end  
-    
+
+  resources :users, only: [ :show ]
 end
