@@ -1,3 +1,5 @@
+
+
 <div id="<%= dom_id quiz %>">
   <p>
     <strong>Title:</strong>
@@ -9,6 +11,10 @@
     <%= quiz.description %>
   </p>
 
-  <%= link_to 'New question', new_quiz_question_path(quiz) %>
+  <p>
+    <strong>Made by:</strong>
+    <%= quiz.user ? quiz.user.username : "Unknown" %>
+  </p>
 
+  <%= link_to 'New question', new_quiz_question_path(quiz) %>
 </div>

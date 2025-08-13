@@ -1,7 +1,9 @@
+
+
 <p class="text-green-600 mb-4"><%= notice %></p>
 
 <div class="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-8 mt-8">
-  <%= render @quiz %>
+  <%= render partial: "quiz", locals: { quiz: @quiz } %>
 
   <% if @quiz.questions.any? %>
     <h2 class="text-2xl font-semibold mt-8 mb-4 text-blue-800">Questions</h2>

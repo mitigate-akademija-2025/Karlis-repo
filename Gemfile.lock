@@ -387,6 +387,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  msgpack (~> 1.8)
   propshaft
   puma (>= 5.0)
   pundit (~> 2.5)
