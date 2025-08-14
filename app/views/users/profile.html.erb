@@ -1,0 +1,32 @@
+<div class="flex flex-col items-center min-h-screen bg-gray-50 py-12">
+  <h1 class="text-3xl font-bold mb-8 text-indigo-700">My Profile</h1>
+  <div class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div>
+      <h2 class="text-xl font-semibold mb-4 text-blue-700">Quizzes Created By You</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <% @quizzes_created.each do |quiz| %>
+          <div class="bg-white rounded shadow p-4 flex flex-col">
+            <h3 class="text-lg font-bold mb-2"><%= quiz.title %></h3>
+            <p class="text-gray-600 mb-2"><%= quiz.description %></p>
+            <%= link_to "View Quiz", quiz_path(quiz), class: "bg-blue-500 text-white px-3 py-1 rounded mt-auto" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div>
+      <h2 class="text-xl font-semibold mb-4 text-purple-700">Last 5 Completed Quizzes</h2>
+      <div class="space-y-4">
+        <% @recent_attempts.each do |attempt| %>
+          <div class="bg-white rounded shadow p-4 flex justify-between items-center">
+            <div>
+              <h3 class="text-lg font-bold"><%= attempt.quiz.title %></h3>
+              <p class="text-gray-600">Score: <%= attempt.score %> / <%= attempt.quiz.questions.count %></p>
+              <p class="text-gray-500 text-sm">Completed at: <%= attempt.created_at.strftime("%Y-%m-%d %H:%M") %></p>
+            </div>
+            <%= link_to "View Results", quiz_attempt_path(attempt), class: "bg-purple-500 text-white px-3 py-1 rounded" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

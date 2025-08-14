@@ -1,10 +1,10 @@
-<h1>Quiz Results: <%= @quiz.title %></h1>
-<p>Score: <%= @attempt.score %> / <%= @quiz.questions.count %></p>
+<h1 class="text-2xl font-bold mb-6 text-indigo-700">Quiz Results: <%= @quiz.title %></h1>
+<p class="mb-6 text-gray-700">Score: <span class="font-bold"><%= @attempt.score %></span> / <%= @quiz.questions.count %></p>
 
 <% @user_answers.each do |ua| %>
-  <fieldset class="mb-4 border rounded p-3">
-    <legend class="font-semibold mb-2"><%= ua.question.name %></legend>
-    <p>Your answer: <%= ua.answer %></p>
+  <fieldset class="mb-6 border rounded p-4 bg-white shadow">
+    <legend class="font-semibold mb-2 text-gray-800"><%= ua.question.name %></legend>
+    <p class="mb-2 text-gray-600">Your answer: <span class="font-bold"><%= ua.answer %></span></p>
     <p>
       <% if ua.correct %>
         <span class="text-green-600 font-bold">Correct!</span>

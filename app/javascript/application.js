@@ -4,5 +4,6 @@ import "controllers"
 import "cocoon-js"
 import jquery from "jquery"
 import "show_answers"
+import "@rails/ujs"
 
 window.$ = window.jQuery = jquery

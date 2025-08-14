@@ -1,10 +1,10 @@
-<h1><%= @quiz.title %></h1>
-<p><%= @quiz.description %></p>
+<h1 class="text-2xl font-bold mb-6 text-purple-700"><%= @quiz.title %></h1>
+<p class="mb-6 text-gray-600"><%= @quiz.description %></p>
 
-<%= form_with url: submit_quiz_path(@quiz), method: :post, local: true do |f| %>
+<%= form_with url: submit_quiz_path(@quiz), method: :post, local: true, class: "space-y-8" do |f| %>
   <% @quiz.questions.each do |question| %>
-    <fieldset class="mb-4 border rounded p-3">
-      <legend class="font-semibold mb-2"><%= question.name %></legend>
+    <fieldset class="mb-8 border rounded-lg p-6 bg-gray-100">
+      <legend class="font-semibold mb-4 text-gray-800 text-lg"><%= question.name %></legend>
 
       <% if question.question_type == "multiple_choice" %>
         <% question.answers.each do |answer| %>
@@ -23,5 +23,5 @@
       <% end %>
     </fieldset>
   <% end %>
-  <%= f.submit "Submit Quiz", class: "bg-blue-500 text-white px-4 py-2 rounded" %>
+  <%= f.submit "Submit Quiz", class: "bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-semibold transition" %>
 <% end %>

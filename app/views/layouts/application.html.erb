@@ -2,42 +2,28 @@
 <html>
   <head>
     <title><%= content_for(:title) || "Karlis Repo" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-   
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
-  <body class="bg-teal-300">
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <main class="flex items-center justify-center">
-      <header>
-      </header>
+  <body class="bg-gray-50 min-h-screen">
+    <nav class="bg-white shadow mb-8">
+      <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <a href="/" class="text-2xl font-bold text-blue-700">QuizApp</a>
+        <div class="flex space-x-6">
+          <% if user_signed_in? && current_user %>
+            <%= link_to "My Profile", profile_path, class: "text-gray-700 hover:text-blue-600 font-semibold" %>
+            <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "text-red-600 hover:text-red-800 font-semibold" %>
+          <% else %>
+            <%= link_to "Sign In", new_user_session_path, class: "text-blue-600 hover:text-blue-800 font-semibold" %>
+            <%= link_to "Sign Up", new_user_registration_path, class: "text-green-600 hover:text-green-800 font-semibold" %>
+          <% end %>
+        </div>
+      </div>
+    </nav>
+    <div class="container mx-auto px-4 py-8">
       <%= yield %>
-    </main>
-
-    <% if user_signed_in? %>
-      <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "text-white bg-red-600 px-4 py-2 rounded" %>
-    <% end %>
-    <% if user_signed_in? %>
-  <%= link_to "My Profile", user_path(current_user), class: "btn btn-primary" %>
-<% end %>
+    </div>
   </body>
 </html>

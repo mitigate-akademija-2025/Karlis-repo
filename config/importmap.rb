@@ -8,3 +8,4 @@ pin_all_from "app/javascript/controllers", under: "controllers"
 pin "cocoon-js" # @0.0.5
 pin "jquery" # @3.7.1
 pin "show_answers", to: "show_answers.js"
+pin "@rails/ujs", to: "rails-ujs.js"

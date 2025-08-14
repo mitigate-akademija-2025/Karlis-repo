@@ -1,27 +1,16 @@
-<p style="color: green"><%= notice %></p>
+<p class="text-green-600"><%= notice %></p>
 
 <% content_for :title, "Quizzes" %>
 
 <div class="flex flex-col items-center w-full">
-  <h1 class="text-4xl font-extrabold text-center text-blue-700 mb-8 mt-6 tracking-tight drop-shadow-lg">
-    Quizzes
-  </h1>
-
-  <table id="quizzes" class="mb-4">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @quizzes.each do |quiz| %>
-        <%= render 'quiz_row', quiz: quiz %>
-      <% end %>
-    </tbody>
-  </table>
-
-  <%= link_to "New quiz", new_quiz_path, class: "mt-2 text-white bg-blue-600 px-4 py-2 rounded" %>
+  <h1 class="text-3xl font-bold mb-8 text-blue-700">Quizzes</h1>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-5xl">
+    <% @quizzes.each do |quiz| %>
+      <div class="bg-white rounded shadow p-4 flex flex-col">
+        <h2 class="text-lg font-semibold mb-2"><%= quiz.title %></h2>
+        <p class="text-gray-600 mb-2"><%= quiz.description %></p>
+        <%= link_to "Take Quiz", take_quiz_path(quiz), class: "bg-blue-500 text-white px-3 py-1 rounded mt-auto" %>
+      </div>
+    <% end %>
+  </div>
 </div>
