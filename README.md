@@ -12,3 +12,15 @@ pundit (2.5.0)
 
 
 See `Gemfile.lock` for full dependency details
+
+Project uses Devise for user authentication, allowing users to register, sign in and manage their accounts securely. Authorization is enforced by pundit so only quiz authors or admins can edit and delete quizzes.
+App uses Cocoon gem for dynamic nested forms, enabling users to add multiple questions and answers to quizzes during creating and also to mark correct answers. Tailwind CSS for UX/UI.
+
+Other features:
+
+- custom point values for each question
+- quiz scoring
+- user reviews after completing quiz
+- search quiz by name
+- my profile page (shows quizzes made by user and last 5 quizzes completed)
+
