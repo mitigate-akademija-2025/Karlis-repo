@@ -13,6 +13,8 @@ Quiz app project made with Ruby on Rails.
 
 See `Gemfile.lock` for full dependency details
 
+Pics from project - https://failiem.lv/u/e2s7apr6p5
+
 Project uses Devise for user authentication, allowing users to register, sign in and manage their accounts securely. Authorization is enforced by pundit so only quiz authors or admins can edit and delete quizzes.
 App uses Cocoon gem for dynamic nested forms, enabling users to add multiple questions and answers to quizzes during creating and also to mark correct answers. Tailwind CSS for UX/UI.
 
