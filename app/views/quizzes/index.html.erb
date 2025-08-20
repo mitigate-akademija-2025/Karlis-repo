@@ -4,6 +4,11 @@
 
 <div class="flex flex-col items-center w-full">
   <h1 class="text-3xl font-bold mb-8 text-blue-700">Quizzes</h1>
+  <% if user_signed_in? %>
+    <div class="mb-6">
+      <%= link_to "Create Quiz", new_quiz_path, class: "bg-green-600 text-white px-4 py-2 rounded" %>
+    </div>
+  <% end %>
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-5xl">
     <% @quizzes.each do |quiz| %>
       <div class="bg-white rounded shadow p-4 flex flex-col">

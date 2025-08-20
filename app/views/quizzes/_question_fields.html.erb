@@ -7,4 +7,14 @@
     <%= f.label :question_type, "Question Type", class: "block mb-2 font-medium text-gray-700" %>
     <%= f.select :question_type, [["Multiple Choice", "multiple_choice"], ["Text", "text"], ["True/False", "true_false"]], {}, class: "w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400" %>
   </div>
+
+  <div class="answers mt-4">
+    <%= f.fields_for :answers do |answer_form| %>
+      <%= render 'answer_fields', f: answer_form %>
+    <% end %>
+  </div>
+
+  <div class="flex justify-end mt-4">
+    <%= link_to_add_association "Add Answer", f, :answers, class: "bg-blue-500 text-white px-3 py-1 rounded" %>
+  </div>
 </fieldset>
