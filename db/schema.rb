@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_13_222620) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_20_121532) do
   create_table "answers", force: :cascade do |t|
     t.string "text"
     t.boolean "correct", default: false
@@ -27,6 +27,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_13_222620) do
     t.datetime "updated_at", null: false
     t.string "question_type", default: "multiple_choice", null: false
     t.string "correct_text_answer"
+    t.integer "points"
     t.index ["quiz_id"], name: "index_questions_on_quiz_id"
   end
 

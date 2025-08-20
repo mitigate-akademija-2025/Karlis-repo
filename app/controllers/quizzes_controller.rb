@@ -62,6 +62,7 @@ class QuizzesController < ApplicationController
     @user_answers = params[:answers] || {}
 
     score = 0
+    total_possible = 0
     attempt = QuizAttempt.create(user: current_user, quiz: @quiz)
 
     @results = @quiz.questions.map do |question|
@@ -76,7 +77,8 @@ class QuizzesController < ApplicationController
         correct = question.answers.any? { |a| a.text.strip.downcase == user_answer.to_s.strip.downcase && a.correct? }
       end
 
-      score += 1 if correct
+      total_possible += question.points || 1
+      score += (question.points || 1) if correct
 
       attempt.user_answers.create(
         question: question,
@@ -88,12 +90,12 @@ class QuizzesController < ApplicationController
     end
 
     attempt.update(score: score)
+    @total_possible = total_possible
     redirect_to quiz_attempt_path(attempt)
   end
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
     def set_quiz
       @quiz = Quiz.find(params[:id])
     end
@@ -118,6 +120,4 @@ class QuizzesController < ApplicationController
       ]
     )
   end
-
-
 end

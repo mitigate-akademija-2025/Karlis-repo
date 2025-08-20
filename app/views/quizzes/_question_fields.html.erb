@@ -1,11 +1,14 @@
 <fieldset class="mb-8 border rounded-lg p-6 bg-gray-100">
   <legend class="font-semibold mb-4 text-gray-800 text-lg">Question</legend>
   <div class="nested-fields space-y-4">
-    <%= f.label :name, "Question", class: "block mb-2 font-medium text-gray-700" %>
-    <%= f.text_field :name, class: "w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400" %>
-
-    <%= f.label :question_type, "Question Type", class: "block mb-2 font-medium text-gray-700" %>
-    <%= f.select :question_type, [["Multiple Choice", "multiple_choice"], ["Text", "text"], ["True/False", "true_false"]], {}, class: "w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-400" %>
+    <div class="mb-4">
+      <%= f.label :name, "Question", class: "block mb-2" %>
+      <%= f.text_field :name, class: "w-full border rounded px-3 py-2 mb-2" %>
+      <%= f.label :question_type, "Question Type", class: "block mb-2" %>
+      <%= f.select :question_type, [["Multiple Choice", "multiple_choice"], ["Text", "text"], ["True/False", "true_false"]], {}, class: "w-full border rounded px-3 py-2 mb-2" %>
+      <%= f.label :points, "Points", class: "block mb-2" %>
+      <%= f.number_field :points, value: f.object.points || 1, min: 1, class: "w-24 border rounded px-3 py-2" %>
+    </div>
   </div>
 
   <div class="answers mt-4">
