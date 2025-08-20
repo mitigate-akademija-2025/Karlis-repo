@@ -3,7 +3,12 @@ class QuizzesController < ApplicationController
 
   # GET /quizzes or /quizzes.json
   def index
-    @quizzes = Quiz.all
+    if params[:q].present?
+      query = params[:q].downcase
+      @quizzes = Quiz.where("LOWER(title) LIKE ?", "%#{query}%")
+    else
+      @quizzes = Quiz.all
+    end
   end
 
   # GET /quizzes/1 or /quizzes/1.json
@@ -48,9 +53,13 @@ class QuizzesController < ApplicationController
 
   # DELETE /quizzes/1 or /quizzes/1.json
   def destroy
-    authorize @quiz
-    @quiz.destroy!
-    redirect_to quizzes_path, notice: "Quiz deleted."
+    @quiz = Quiz.find(params[:id])
+    if @quiz.user == current_user
+      @quiz.destroy
+      redirect_to quizzes_path, notice: "Quiz was successfully deleted."
+    else
+      redirect_to quizzes_path, alert: "You are not authorized to delete this quiz."
+    end
   end
 
   def take

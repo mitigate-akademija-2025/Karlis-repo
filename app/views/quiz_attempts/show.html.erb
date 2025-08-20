@@ -16,3 +16,12 @@
     </p>
   </fieldset>
 <% end %>
+
+<h2 class="text-xl font-semibold mt-8 mb-4">Leave a Review</h2>
+<%= form_with model: [@quiz, Review.new], local: true do |f| %>
+  <div class="mb-4">
+    <%= f.text_area :content, placeholder: "Write your review...", class: "w-full border rounded px-3 py-2" %>
+  </div>
+  <%= f.submit "Submit Review", class: "bg-blue-500 text-white px-4 py-2 rounded mr-2" %>
+  <%= link_to "Back to Quizzes", quizzes_path, class: "bg-gray-400 text-white px-4 py-2 rounded" %>
+<% end %>

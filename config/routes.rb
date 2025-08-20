@@ -3,19 +3,20 @@ Rails.application.routes.draw do
 
   get "up" => "rails/health#show", as: :rails_health_check
 
-  root to: redirect('/quizzes')
+  root to: redirect("/quizzes")
 
   resources :quizzes do
     resources :questions, shallow: true
+    resources :reviews, only: [ :create ]
     member do
       get :take
       post :submit
     end
   end
 
-  resources :quiz_attempts, only: [:show]
+  resources :quiz_attempts, only: [ :show ]
 
   get "profile", to: "users#profile", as: :profile
 
-  resources :users, only: [:show], constraints: { id: /\d+/ }
+  resources :users, only: [ :show ], constraints: { id: /\d+/ }
 end

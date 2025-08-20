@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_20_121532) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_20_130637) do
   create_table "answers", force: :cascade do |t|
     t.string "text"
     t.boolean "correct", default: false
@@ -49,6 +49,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_20_121532) do
     t.integer "user_id"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "quiz_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quiz_id"], name: "index_reviews_on_quiz_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "user_answers", force: :cascade do |t|
     t.integer "quiz_attempt_id", null: false
     t.integer "question_id", null: false
@@ -78,6 +88,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_20_121532) do
   add_foreign_key "questions", "quizzes"
   add_foreign_key "quiz_attempts", "quizzes"
   add_foreign_key "quiz_attempts", "users"
+  add_foreign_key "reviews", "quizzes"
+  add_foreign_key "reviews", "users"
   add_foreign_key "user_answers", "questions"
   add_foreign_key "user_answers", "quiz_attempts"
 end
