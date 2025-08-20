@@ -1,24 +1,14 @@
 # README
+August 2025
+Quiz app project made with Ruby on Rails. 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+ruby 3.4.1
+Rails 8.0.2
+sqlite3 3.45.3
 
-Things you may want to cover:
+cocoon (1.2.15)
+devise (4.9.4)
+pundit (2.5.0)
 
-* Ruby version
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+See `Gemfile.lock` for full dependency details
